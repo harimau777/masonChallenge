@@ -1,8 +1,8 @@
 import BloomFilter from './BloomFilter';
 
 class spellChecker {
-  constructor(words) {
-    this.dictionary = new BloomFilter(words.length);
+  constructor(words, numberOfHashes) {
+    this.dictionary = new BloomFilter(words.length, null, numberOfHashes);
     words.forEach(word => this.dictionary.add(word.toLowerCase()));
   }
 

@@ -1,13 +1,14 @@
 import murmurhash2 from './murmurhash2';
 
 export default class BloomFilter {
-  // Provide the number of items that will be hashed into the bloom filter and
-  // the hash function to use.  If the hash function is omitted, then it defaults
-  // to Murmurhash2.
-  constructor(numberOfHashedItems, hashFunction) {
+  // Provide the number of items that will be hashed into the bloom filter, the
+  // hash function to use, and the number of hashes to use.  If the hash function
+  // is omitted, then it defaults to Murmurhash2.  If the number of hashes is
+  // omitted, then the optimal number is calculated.
+  constructor(numberOfHashedItems, hashFunction, numberOfHashes) {
     this.numberOfBitsInFilter = 32;
     this.numberOfHashedItems = numberOfHashedItems;
-    this.numberOfHashes = this.calculateOptimalNumberOfHashes();
+    this.numberOfHashes = numberOfHashes || this.calculateOptimalNumberOfHashes();
     this.hashFunction = hashFunction || murmurhash2;
     this.filter = Array(numberOfHashedItems).fill(false);
   }
